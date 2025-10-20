@@ -1,19 +1,23 @@
-FROM node:18-alpine
+# Build image
+docker build -t nodejs-demo-app .
 
-# Set working directory
-WORKDIR /app
+# Run container
+docker run -p 3000:3000 nodejs-demo-app
 
-# Copy package.json and install dependencies
-COPY package*.json ./
-RUN npm install
+# Run in background
+docker run -d -p 3000:3000 --name my-app nodejs-demo-app
 
-# Copy all source code
-COPY . .
+# See running containers
+docker ps
 
-# Expose app port
-EXPOSE 8080
+# Stop container
+docker stop my-app
 
-# Start the app
-CMD ["npm", "start"]
+# Remove container
+docker rm my-app
 
+# Remove image
+docker rmi nodejs-demo-app
 
+# View logs
+docker logs my-app
